@@ -22,3 +22,7 @@ To run this JDBC program, you'll need the following:
 
 ```java
 Class.forName("com.mysql.cj.jdbc.Driver");
+
+
+![Output Screenshot]([Image URL](https://github.com/KrishhDude/jdbc-trials/blob/main/output.png)https://github.com/KrishhDude/jdbc-trials/blob/main/output.png)
+
