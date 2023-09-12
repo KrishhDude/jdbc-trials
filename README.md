@@ -1,6 +1,9 @@
 # JDBC
 
 ## Description
+
+- Java version: 17.0.8
+- MySQL version: 8.0.34
 I'm experimenting with JDBC (Java Database Connectivity) programs to fulfill a requirement. I developed these programs using IntelliJ IDEA as my integrated development environment (IDE). In this repository, I've included the `Main.java` file, even though the Maven project I used for this experiment has many other dependencies.
 
 - database created: emp
