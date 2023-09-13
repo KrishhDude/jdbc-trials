@@ -21,14 +21,14 @@ public class Main {
             //Menu For CRUD Operation
             while(true){
 
-                System.out.println("Select one from the following:\n1. Display\n2. Insert\n3. Delete\n4. Update\n5. Exit");
+                System.out.println("\nSelect one from the following:\n1. Display\n2. Insert\n3. Delete\n4. Update\n5. Exit");
                 System.out.println("\nEnter your choice:");
                 int choice = scanner.nextInt();
                 scanner.nextLine();
 
                 switch(choice){
                     case 1: 
-                            // Display the table before any operations
+                            // Display the table
                             displayEmployeeTable(connection);
                             break;
                     
