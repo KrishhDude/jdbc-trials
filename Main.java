@@ -3,40 +3,65 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         String jdbcUrl = "jdbc:mysql://localhost:3306/emp";
         String username = "root";
-        String password = "mysql";
+        String password = "abhi18@mysql";
+
+        Scanner scanner = new Scanner(System.in);
 
         try {
             // Establish a connection to the MySQL database
             Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
 
-            // Display the table before any operations
-            displayEmployeeTable(connection);
+         
+            //Menu For CRUD Operation
+            while(true){
 
-            // Insert a new employee
-            insertEmployee(connection, "John Doe", "Manager");
+                System.out.println("Select one from the following:\n1. Display\n2. Insert\n3. Delete\n4. Update\n5. Exit");
+                System.out.println("\nEnter your choice:");
+                int choice = scanner.nextInt();
+                scanner.nextLine();
 
-            // Display the table after inserting
-            displayEmployeeTable(connection);
+                switch(choice){
+                    case 1: 
+                            // Display the table before any operations
+                            displayEmployeeTable(connection);
+                            break;
+                    
+                    case 2:
+                            // Insert a new employee
+                            insertEmployee(connection, scanner);
+                            break;
 
-            // Delete an employee by ID
-            deleteEmployee(connection, 1);
+                    case 3:
+                            // Delete an employee by ID
+                            deleteEmployee(connection, scanner);
+                            break;
 
-            // Display the table after deleting
-            displayEmployeeTable(connection);
+                    case 4:
+                             // Update the position to new position where ID=id
+                             updateEmployeePosition(connection, scanner);
+                             break;
 
-            // Update the position to "asst. manager" where ID=0
-            updateEmployeePosition(connection, 0, "asst. manager");
+                    case 5:
+                            //Exiting the program
+                            System.out.println("\nExiting the Program!!");
+                            connection.close();
+                            return;
 
-            // Display the table after updating the position
-            displayEmployeeTable(connection);
+                    default:
+                            System.out.println("\nInvalid Choice!!");
+                            break;
 
-            // Close the connection
-            connection.close();
+
+                }
+
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -63,7 +88,12 @@ public class Main {
     }
 
     // Insert a new employee into the "employee" table
-    private static void insertEmployee(Connection connection, String name, String position) throws SQLException {
+    private static void insertEmployee(Connection connection, Scanner scanner) throws SQLException {
+        System.out.println("\nEnter name of the employee: ");
+        String name = scanner.nextLine();
+        System.out.println("\nEnter the position of the employee: ");
+        String position = scanner.nextLine();
+        
         String sqlQuery = "INSERT INTO employee (name, position) VALUES (?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery, PreparedStatement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1, name);
@@ -80,7 +110,9 @@ public class Main {
     }
 
     // Delete an employee from the "employee" table by ID
-    private static void deleteEmployee(Connection connection, int id) throws SQLException {
+    private static void deleteEmployee(Connection connection, Scanner scanner) throws SQLException {
+        System.out.println("\nEnter the employee id of employee to be deleted: ");
+        int id = scanner.nextInt();
         String sqlQuery = "DELETE FROM employee WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatement.setInt(1, id);
@@ -95,7 +127,12 @@ public class Main {
     }
 
     // Update an employee's position by ID
-    private static void updateEmployeePosition(Connection connection, int id, String newPosition) throws SQLException {
+    private static void updateEmployeePosition(Connection connection, Scanner scanner) throws SQLException {
+        System.out.println("\nEnter the new position of the employee: ");
+        String newPosition = scanner.nextLine();
+        System.out.println("\nEnter the employee id of employee to be updated: ");
+        int id = scanner.nextInt();
+        
         String sqlQuery = "UPDATE employee SET position = ? WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
         preparedStatement.setString(1, newPosition);
