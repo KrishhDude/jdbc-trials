@@ -29,6 +29,12 @@ public class Main {
             // Display the table after deleting
             displayEmployeeTable(connection);
 
+            // Update the position to "asst. manager" where ID=0
+            updateEmployeePosition(connection, 0, "asst. manager");
+
+            // Display the table after updating the position
+            displayEmployeeTable(connection);
+
             // Close the connection
             connection.close();
         } catch (SQLException e) {
@@ -81,6 +87,22 @@ public class Main {
         int rowsAffected = preparedStatement.executeUpdate();
         if (rowsAffected > 0) {
             System.out.println("Deleted employee with ID: " + id);
+        } else {
+            System.out.println("No employee found with ID: " + id);
+        }
+
+        preparedStatement.close();
+    }
+
+    // Update an employee's position by ID
+    private static void updateEmployeePosition(Connection connection, int id, String newPosition) throws SQLException {
+        String sqlQuery = "UPDATE employee SET position = ? WHERE id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        preparedStatement.setString(1, newPosition);
+        preparedStatement.setInt(2, id);
+        int rowsAffected = preparedStatement.executeUpdate();
+        if (rowsAffected > 0) {
+            System.out.println("Updated position for employee with ID " + id + " to " + newPosition);
         } else {
             System.out.println("No employee found with ID: " + id);
         }
