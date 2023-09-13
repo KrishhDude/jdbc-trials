@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         String jdbcUrl = "jdbc:mysql://localhost:3306/emp";
         String username = "root";
-        String password = "abhi18@mysql";
+        String password = "mysql";
 
         Scanner scanner = new Scanner(System.in);
 
